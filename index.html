@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Alcohol Calculator</title>
+    <!-- Link to Google Fonts for Oswald -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Event Alcohol Calculator</h1>
+        <p>How much alcohol should I purchase for my event?</p>
+
+        <!-- General Calculation Section -->
+        <div class="section">
+            <h2>General Event Information</h2>
+
+            <div class="input-group">
+                <label for="clientName">Event/Host/Client Name:</label>
+                <input type="text" id="clientName" placeholder="Enter client name">
+            </div>
+
+            <div class="input-group">
+                <label for="eventDate">Date of the Event:</label>
+                <input type="date" id="eventDate">
+            </div>
+
+            <div class="input-group">
+                <label for="hoursServed"># of Hours Drinks Served:</label>
+                <input type="number" id="hoursServed" min="1" max="24" value="4">
+            </div>
+
+            <div class="input-group">
+                <label for="barSetups"># of Bar Locations / Set Ups:</label>
+                <input type="number" id="barSetups" min="1" max="10" value="1">
+            </div>
+
+            <div class="input-group">
+                <label for="weather">Local Weather Around Date of Event:</label>
+                <select id="weather">
+                    <option value="normal">Room Temp (&lt;75 Degrees)</option>
+                    <option value="hot">Hot (&gt;75 Degrees)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="totalGuests">Total Number of Guests:</label>
+                <input type="range" id="totalGuests" min="1" max="1000" value="100" oninput="updateValue('totalGuestsValue', this.value)">
+                <span id="totalGuestsValue">100</span>
+            </div>
+
+            <div class="input-group">
+                <label for="percentageDrinkers">Percentage of Guests Who Drink:</label>
+                <input type="range" id="percentageDrinkers" min="1" max="100" value="85" oninput="updateValue('percentageDrinkersValue', this.value)">
+                <span id="percentageDrinkersValue">85%</span>
+            </div>
+
+            <div class="input-group">
+                <label for="averageDrinkers">What Type of Drinkers Are Your Guests?</label>
+                <select id="averageDrinkers">
+                    <option value="1">Average Drinkers (1 drink/hr)</option>
+                    <option value="2">Heavy Drinkers (2 drinks/hr)</option>
+                    <option value="0.5">Light Drinkers (0.5 drinks/hr)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="beerDrinkers">% of Beer Drinkers:</label>
+                <input type="range" id="beerDrinkers" min="1" max="100" value="20" oninput="updateValue('beerDrinkersValue', this.value)">
+                <span id="beerDrinkersValue">20%</span>
+            </div>
+
+            <div class="input-group">
+                <label for="beerType">Preferred Beer Type:</label>
+                <select id="beerType">
+                    <option value="lager">Lager</option>
+                    <option value="ipa">IPA</option>
+                    <option value="stout">Stout</option>
+                    <option value="light">Light Beer</option>
+                    <option value="mixed">Mixed Variety</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="wineDrinkers">% of Wine Drinkers:</label>
+                <input type="range" id="wineDrinkers" min="1" max="100" value="20" oninput="updateValue('wineDrinkersValue', this.value)">
+                <span id="wineDrinkersValue">20%</span>
+            </div>
+
+            <div class="input-group">
+                <label for="wineType">Preferred Wine Type:</label>
+                <select id="wineType">
+                    <option value="merlot">Merlot</option>
+                    <option value="cabernet">Cabernet Sauvignon</option>
+                    <option value="chardonnay">Chardonnay</option>
+                    <option value="pinotGrigio">Pinot Grigio</option>
+                    <option value="mixed">Mixed Variety</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="cocktailDrinkers">% of Cocktail Drinkers:</label>
+                <input type="range" id="cocktailDrinkers" min="1" max="100" value="60" oninput="updateValue('cocktailDrinkersValue', this.value)">
+                <span id="cocktailDrinkersValue">60%</span>
+            </div>
+
+            <!-- Calculate Button for General Calculation -->
+            <button onclick="calculateGeneral()">Calculate General Alcohol Needs</button>
+        </div>
+
+        <!-- Specific Liquor Breakdown Section -->
+        <div class="section">
+            <h2>Specific Liquor Breakdown</h2>
+
+            <div class="input-group">
+                <label for="vodkaDrinkers">% of Vodka Drinkers:</label>
+                <input type="range" id="vodkaDrinkers" min="1" max="100" value="25" oninput="updateValue('vodkaDrinkersValue', this.value)">
+                <span id="vodkaDrinkersValue">25%</span>
+            </div>
+
+            <div class="input-group">
+                <label for="bourbonDrinkers">% of Bourbon Drinkers:</label>
+                <input type="range" id="bourbonDrinkers" min="1" max="100" value="25" oninput="updateValue('bourbonDrinkersValue', this.value)">
+                <span id="bourbonDrinkersValue">25%</span>
+            </div>
+
+            <div class="input-group">
+                <label for="ginDrinkers">% of Gin Drinkers:</label>
+                <input type="range" id="ginDrinkers" min="1" max="100" value="15" oninput="updateValue('ginDrinkersValue', this.value)">
+                <span id="ginDrinkersValue">15%</span>
+            </div>
+
+            <div class="input-group">
+                <label for="tequilaDrinkers">% of Tequila Drinkers:</label>
+                <input type="range" id="tequilaDrinkers" min="1" max="100" value="15" oninput="updateValue('tequilaDrinkersValue', this.value)">
+                <span id="tequilaDrinkersValue">15%</span>
+            </div>
+
+            <div class="input-group">
+                <label for="rumDrinkers">% of Rum Drinkers:</label>
+                <input type="range" id="rumDrinkers" min="1" max="100" value="10" oninput="updateValue('rumDrinkersValue', this.value)">
+                <span id="rumDrinkersValue">10%</span>
+            </div>
+
+            <div class="input-group">
+                <label for="specialtyDrinkers">% of Specialty Drinkers:</label>
+                <input type="range" id="specialtyDrinkers" min="1" max="100" value="10" oninput="updateValue('specialtyDrinkersValue', this.value)">
+                <span id="specialtyDrinkersValue">10%</span>
+            </div>
+
+            <!-- Calculate Button for Specific Liquor Breakdown -->
+            <button onclick="calculateLiquorBreakdown()">Calculate Liquor Breakdown</button>
+        </div>
+
+        <!-- Result Sections -->
+        <div class="result" id="generalResult"></div>
+        <div class="result" id="liquorResult"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
